@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const socket = this.socket = new Socket(new WebSocket('wss://https://young-garden-89860.herokuapp.com/ws'));
+    const socket = this.socket = new Socket(new WebSocket('wss://young-garden-89860.herokuapp.com/ws'));
     socket.on('connect', this.onConnect.bind(this));
     socket.on('disconnect', this.onDisconnect.bind(this));
     socket.on('message add', this.onAddMessage.bind(this));
