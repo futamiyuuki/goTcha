@@ -13,7 +13,8 @@ import (
 )
 
 const (
-	allCh = 0
+	allCh     = 0
+	maxStrLen = 420
 )
 
 var mc = make(chan ChatMessage)  // message chan
@@ -101,6 +102,9 @@ func addMessage(d interface{}, conn *websocket.Conn) {
 	})
 	if err != nil {
 		log.Println(err)
+	}
+	if len(m.Content) > maxStrLen {
+		m.Content = m.Content[:maxStrLen]
 	}
 	fmt.Printf("%#v\n", m)
 	mc <- m
@@ -230,28 +234,6 @@ func unsubscribeMessage(conn *websocket.Conn) {
 }
 
 func subscribeAddChannel(conn *websocket.Conn, mu *sync.Mutex) {
-	// var result []ChannelModel
-	// if err := dbc.Find(nil).All(&result); err != nil {
-	// 	log.Println(err)
-	// 	return
-	// }
-	// for i := 0; i < len(result); i++ {
-	// 	res := result[i]
-	// 	fmt.Printf("res: %+v\n", res)
-	// 	om := Message{"channel add",
-	// 		ChatChannel{
-	// 			res.Name,
-	// 			res.ID,
-	// 		},
-	// 	}
-	// 	mu.Lock()
-	// 	if err := conn.WriteJSON(om); err != nil {
-	// 		log.Println("write error:", err)
-	// 		break
-	// 	}
-	// 	mu.Unlock()
-	// }
-
 	for cid := range chConnMap {
 		ch := cidMap[cid]
 		om := Message{"channel add", ch}
