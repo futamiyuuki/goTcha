@@ -92,8 +92,8 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Using DB: 127.0.0.1:27017")
-	session.DB("chat").DropDatabase()
-	dbm = session.DB("chat").C("messages")
+	session.DB("heroku_9867bqd6").DropDatabase()
+	dbm = session.DB("heroku_9867bqd6").C("messages")
 	// dbc = session.DB("chat").C("channels")
 	defer session.Close()
 
