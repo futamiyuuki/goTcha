@@ -33,3 +33,7 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+webpack.config.js
+Procfile
+package-lock.json
