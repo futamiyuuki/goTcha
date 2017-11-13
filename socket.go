@@ -13,8 +13,10 @@ import (
 )
 
 const (
-	allCh     = 0
-	maxStrLen = 420
+	allCh      = 0
+	maxMsgLen  = 420
+	maxUsrLen  = 17
+	maxChanLen = 17
 )
 
 var mc = make(chan ChatMessage)  // message chan
@@ -103,8 +105,8 @@ func addMessage(d interface{}, conn *websocket.Conn) {
 	if err != nil {
 		log.Println(err)
 	}
-	if len(m.Content) > maxStrLen {
-		m.Content = m.Content[:maxStrLen]
+	if len(m.Content) > maxMsgLen {
+		m.Content = m.Content[:maxMsgLen]
 	}
 	fmt.Printf("%#v\n", m)
 	mc <- m
@@ -119,14 +121,9 @@ func addChannel(d interface{}, conn *websocket.Conn) {
 	}
 	c.ID = cid
 	cid++
-
-	// err = dbc.Insert(&ChannelModel{
-	// 	c.Name,
-	// 	c.ID,
-	// })
-	// if err != nil {
-	// 	log.Println(err)
-	// }
+	if len(c.Name) > maxChanLen {
+		c.Name = c.Name[:maxChanLen]
+	}
 
 	fmt.Printf("%#v\n", c)
 	cidMap[c.ID] = c
@@ -153,6 +150,9 @@ func editUser(d interface{}, conn *websocket.Conn) {
 	}
 	fmt.Printf("Edited to user: %#v\n", data)
 	u := User{data.CurrentUserName, userMap[conn].ID}
+	if len(u.Name) > maxUsrLen {
+		u.Name = u.Name[:maxUsrLen]
+	}
 	userMap[conn] = u
 	euc <- u
 }
