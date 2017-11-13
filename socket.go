@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sort"
 	"sync"
 	"time"
 
@@ -17,6 +18,7 @@ const (
 	maxMsgLen  = 420
 	maxUsrLen  = 17
 	maxChanLen = 17
+	maxMsgCnt  = 20
 )
 
 var mc = make(chan ChatMessage)  // message chan
@@ -176,10 +178,13 @@ func subscribeMessage(d interface{}, conn *websocket.Conn, mu *sync.Mutex) {
 	stopMap[conn] = stop
 
 	var result []MessageModel
-	if err := dbm.Find(bson.M{"channelId": data.ChannelID}).Sort("createdAt").All(&result); err != nil {
+	if err := dbm.Find(bson.M{"channelId": data.ChannelID}).Sort("-createdAt").Limit(maxMsgCnt).All(&result); err != nil {
 		log.Println(err)
 		return
 	}
+	sort.Slice(result, func(a int, b int) bool {
+		return result[a].CreatedAt.Before(result[b].CreatedAt)
+	})
 	for i := 0; i < len(result); i++ {
 		res := result[i]
 		fmt.Printf("res: %+v\n", res)
