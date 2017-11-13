@@ -19,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     // const socket = this.socket = new Socket(new WebSocket('wss://echo.websocket.org'));
-    const socket = this.socket = new Socket(new WebSocket(process.env.WS_PORT || 'ws://localhost:7331/ws'));
+    const socket = this.socket = new Socket(new WebSocket(process.env.WS_PORT));
     socket.on('connect', this.onConnect.bind(this));
     socket.on('disconnect', this.onDisconnect.bind(this));
     socket.on('message add', this.onAddMessage.bind(this));

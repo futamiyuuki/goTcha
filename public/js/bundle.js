@@ -18278,7 +18278,7 @@ var App = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // const socket = this.socket = new Socket(new WebSocket('wss://echo.websocket.org'));
-      var socket = this.socket = new _socket2.default(new WebSocket(process.env.WS_PORT || 'ws://localhost:7331/ws'));
+      var socket = this.socket = new _socket2.default(new WebSocket(process.env.WS_PORT));
       socket.on('connect', this.onConnect.bind(this));
       socket.on('disconnect', this.onDisconnect.bind(this));
       socket.on('message add', this.onAddMessage.bind(this));
