@@ -18,7 +18,7 @@ const (
 	maxMsgLen  = 420
 	maxUsrLen  = 17
 	maxChanLen = 17
-	maxMsgCnt  = 20
+	maxMsgCnt  = 29
 )
 
 var mc = make(chan ChatMessage)  // message chan
