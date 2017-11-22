@@ -35,4 +35,3 @@ bower_components/
 .flooignore
 
 webpack.config.js
-Procfile

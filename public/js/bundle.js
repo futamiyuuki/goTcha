@@ -18218,7 +18218,7 @@ module.exports = camelize;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -18277,7 +18277,8 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var socket = this.socket = new _socket2.default(new WebSocket('wss://young-garden-89860.herokuapp.com/ws'));
+      console.log(process.env.WS_PORT);
+      var socket = this.socket = new _socket2.default(new WebSocket(process.env.WS_PORT || 'wss://young-garden-89860.herokuapp.com/ws'));
       socket.on('connect', this.onConnect.bind(this));
       socket.on('disconnect', this.onDisconnect.bind(this));
       socket.on('message add', this.onAddMessage.bind(this));
@@ -18399,6 +18400,7 @@ var App = function (_Component) {
 }(_react.Component);
 
 exports.default = App;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 28 */
