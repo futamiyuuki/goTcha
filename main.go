@@ -18,7 +18,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Using DB: 127.0.0.1:27017")
+	fmt.Println("Using DB: " + mongodbURI)
 	session.DB("heroku_9867bqd6").DropDatabase()
 	dbm = session.DB("heroku_9867bqd6").C("messages")
 	// dbc = session.DB("chat").C("channels")
