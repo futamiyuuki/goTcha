@@ -18277,7 +18277,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var socket = this.socket = new _socket2.default(new WebSocket('wss://young-garden-89860.herokuapp.com/ws'));
+      var socket = this.socket = new _socket2.default(new WebSocket('wss://gotcha-app.herokuapp.com/ws'));
       socket.on('connect', this.onConnect.bind(this));
       socket.on('disconnect', this.onDisconnect.bind(this));
       socket.on('message add', this.onAddMessage.bind(this));
